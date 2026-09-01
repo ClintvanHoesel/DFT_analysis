@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dft-utils"
+version = "0.1.0"
+description = "Utilities for analysing ADF and ORCA quantum-chemistry results"
+readme = "README.md"
+license = "LicenseRef-PolyForm-Noncommercial-1.0.0"
+license-files = ["LICENSE.md"]
+requires-python = ">=3.10"
+authors = [{name = "Clint van Hoesel"}]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+]
+
+[project.optional-dependencies]
+analysis = [
+    "dill>=0.3.7",
+    "h5py>=3.8",
+    "ijson>=3.2",
+    "matplotlib>=3.7",
+    "pandas>=2.0",
+    "tqdm>=4.65",
+]
+advanced = [
+    "adaptive>=0.13",
+    "loky>=3.4",
+    "mpire>=2.10",
+    "seaborn>=0.13",
+]
+visualization = [
+    "cmcrameri>=1.7",
+    "colour-science>=0.4.4",
+    "pyvista>=0.40",
+]
+dev = [
+    "black>=24.0",
+    "isort>=5.13",
+    "pytest>=8.0",
+    "ruff>=0.8",
+]
+pyscf = [
+    "pyscf>=2.3",
+    "pymongo>=4.0",
+    "py-ubjson>=0.16",
+]
+all = [
+    "dft-utils[analysis,advanced,visualization,pyscf]",
+]
+
+[project.scripts]
+dft-calc-spectra = "dft_utils.orca.calc_spectra:main"
+dft-orca-into-hdf5 = "dft_utils.orca.orca_into_hdf5:main"
+dft-rmpmp-analysis = "dft_utils.orca.rmpmp_pairwise_calculator:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dft_utils*"]
+
+[tool.setuptools.package-data]
+dft_utils = ["py.typed"]
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+exclude = ["build", "dist", ".venv"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
