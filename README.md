@@ -1,7 +1,7 @@
 # DFT analysis utilities
 
 Utilities for analysing results from ADF/AMS and ORCA quantum-chemistry
-calculations. The import package is `dft_utils`.
+calculations. The import package is `dft_utils`. Originally written for my PhD research.
 
 ## Installation
 
@@ -30,4 +30,3 @@ isort --check-only .
 ruff check . --select F821,E9
 ```
 
-Known issues and severity levels are tracked in [BUGS.md](BUGS.md).
